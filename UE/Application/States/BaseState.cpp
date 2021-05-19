@@ -52,7 +52,12 @@ void BaseState::handleSendMessage(common::PhoneNumber from, std::string message)
 
 void BaseState::handleCallRequest(common::PhoneNumber from)
 {
-    logger.logDebug("Uexpected: handleCallRequest");
+    logger.logDebug("Unexpected: handleCallRequest");
+}
+
+void BaseState::handleReceivedCallDrop(common::PhoneNumber from)
+{
+    logger.logError("Unexpected ReceivedCallDrop: ", from);
 }
 
 }

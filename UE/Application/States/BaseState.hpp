@@ -26,6 +26,8 @@ public:
 
     void handleSendMessage(common::PhoneNumber from, std::string message) override;
 
+    void handleReceivedCallDrop(common::PhoneNumber recipient) override;
+
 protected:
     Context& context;
     common::PrefixedLogger logger;

@@ -31,7 +31,12 @@ void ConnectedState::handleSendMessage(common::PhoneNumber from, std::string mes
 
 void ConnectedState::handleCallRequest(common::PhoneNumber from)
 {
-    logger.logInfo("Received call request from ", from);
+    logger.logInfo("Receiving call request from ", from);
+}
+
+void ConnectedState::handleReceivedCallDrop(common::PhoneNumber recipient)
+{
+    context.logger.logDebug("Receiving Call dropped from ", recipient);
 }
 
 }

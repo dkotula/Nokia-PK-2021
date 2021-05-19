@@ -17,6 +17,7 @@ public:
     MOCK_METHOD(void, handleAttachAccept, (), (final));
     MOCK_METHOD(void, handleAttachReject, (), (final));
     MOCK_METHOD(void, handleCallRequest, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleReceivedCallDrop, (common::PhoneNumber), (final));
 };
 
 class IBtsPortMock : public IBtsPort
