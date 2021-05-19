@@ -24,6 +24,7 @@ public:
     void showConnecting() override;
     void showConnected() override;
     void setSmsComposeMode() override;
+    void showSmsReceived() override;
 
 
 private:

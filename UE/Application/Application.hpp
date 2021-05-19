@@ -30,9 +30,13 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
+
     void handleSendMessage(common::PhoneNumber from, std::string message) override;
     void handleCallRequest(common::PhoneNumber from) override;
     void handleReceivedCallDrop(common::PhoneNumber PhoneNumber) override;
+
+    void handleSendMessage(const common::PhoneNumber to, const std::string& message) override;
+
 
 
 private:
