@@ -6,7 +6,6 @@
 #include "Mocks/IBtsPortMock.hpp"
 #include "Mocks/IUserPortMock.hpp"
 #include "Mocks/ITimerPortMock.hpp"
-#include "Mocks/ISmsDbMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Messages/BtsId.hpp"
 #include <memory>
@@ -21,31 +20,21 @@ class ApplicationTestSuite : public Test
 protected:
     const common::BtsId BTS_ID{42};
     const common::PhoneNumber PHONE_NUMBER{112};
-    const std::string TEXT{"Test sms"};
     NiceMock<common::ILoggerMock> loggerMock;
     StrictMock<IBtsPortMock> btsPortMock;
     StrictMock<IUserPortMock> userPortMock;
     StrictMock<ITimerPortMock> timerPortMock;
-    StrictMock<ISmsDbMock> dbMock;
 
     Expectation expectShowNotConnected = EXPECT_CALL(userPortMock, showNotConnected());
-
     Application objectUnderTest{PHONE_NUMBER,
                                 loggerMock,
                                 btsPortMock,
                                 userPortMock,
-                                timerPortMock,
-                                dbMock,
-                                dbMock};
+                                timerPortMock};
 };
 
 struct ApplicationNotConnectedTestSuite : ApplicationTestSuite
 {};
-
-//TEST_F(ApplicationConnectedTestSuite, shallShowNewSmsOnSmsReceived){
-//    EXPECT_CALL(userPortMock, showNewSms());
-//    objectUnderTest.handleSms(PHONE_NUMBER, TEXT);
-//}
 
 struct ApplicationConnectingTestSuite : ApplicationNotConnectedTestSuite
 {
@@ -121,7 +110,6 @@ TEST_F(ApplicationConnectedTestSuite, shallReattach)
     doConnecting();
     doConnected();
 }
-
 
 
 

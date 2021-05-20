@@ -12,11 +12,11 @@ public:
     IBtsEventsHandlerMock();
     ~IBtsEventsHandlerMock() override;
 
-
     MOCK_METHOD(void, handleDisconnected, (), (final));
     MOCK_METHOD(void, handleSib, (common::BtsId), (final));
     MOCK_METHOD(void, handleAttachAccept, (), (final));
     MOCK_METHOD(void, handleAttachReject, (), (final));
+
     MOCK_METHOD(void, handleCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleReceivedCallDrop, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleSmsReceived, (common::PhoneNumber from, std::string text), (final));

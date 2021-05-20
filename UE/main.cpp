@@ -3,7 +3,6 @@
 #include "Ports/BtsPort.hpp"
 #include "Ports/UserPort.hpp"
 #include "Ports/TimerPort.hpp"
-#include "Ports/SmsDbPort.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -16,12 +15,10 @@ int main(int argc, char* argv[])
     auto& gui = appEnv->getUeGui();
     auto phoneNumber = appEnv->getMyPhoneNumber();
 
-    SmsDb db;
-    SmsDb db_w;
     BtsPort bts(logger, tranport, phoneNumber);
-    UserPort user(logger, gui, phoneNumber, db, db_w);
+    UserPort user(logger, gui, phoneNumber);
     TimerPort timer(logger);
-    Application app(phoneNumber, logger, bts, user, timer, db, db_w);
+    Application app(phoneNumber, logger, bts, user, timer);
     bts.start(app);
     user.start(app);
     timer.start(app);
