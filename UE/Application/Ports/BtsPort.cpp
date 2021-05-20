@@ -88,7 +88,6 @@ void BtsPort::handleMessage(BinaryMessage msg)
         }
         default:
             logger.logError("unknow message: ", msgId, ", from: ", from);
-
         }
     }
     catch (std::exception const& ex)

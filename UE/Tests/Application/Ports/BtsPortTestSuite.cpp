@@ -38,7 +38,6 @@ protected:
     {
 
         EXPECT_CALL(transportMock, registerMessageCallback(IsNull()));
-        EXPECT_CALL(transportMock, registerDisconnectedCallback(IsNull()));
         objectUnderTest.stop();
     }
 };
@@ -59,6 +58,7 @@ TEST_F(BtsPortTestSuite, shallHandleDisconnected)
     EXPECT_CALL(handlerMock, handleDisconnected());
     disconnectCallback();
 }
+
 
 TEST_F(BtsPortTestSuite, shallHandleSib)
 {
@@ -87,6 +87,16 @@ TEST_F(BtsPortTestSuite, shallHandleAttachReject)
                                 common::PhoneNumber{},
                                 PHONE_NUMBER};
     msg.writeNumber(false);
+    messageCallback(msg.getMessage());
+}
+
+TEST_F(BtsPortTestSuite, shallHandleSms)
+{
+    EXPECT_CALL(handlerMock, handleSms);
+    common::OutgoingMessage msg{common::MessageId::Sms,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    msg.writeText("Test message");
     messageCallback(msg.getMessage());
 }
 

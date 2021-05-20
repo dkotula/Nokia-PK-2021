@@ -13,6 +13,7 @@ aux_source_directory(Config SRC_LIST)
 aux_source_directory(Traits SRC_LIST)
 aux_source_directory(CommonEnvironment SRC_LIST)
 aux_source_directory(TestCommands SRC_LIST)
+aux_source_directory(SmsForDb SRC_LIST)
 
 add_library(${PROJECT_NAME} ${SRC_LIST})
 

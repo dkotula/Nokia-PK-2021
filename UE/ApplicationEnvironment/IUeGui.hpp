@@ -17,6 +17,7 @@ public:
     class IDialMode;
     class ICallMode;
     class ITextMode;
+    class BaseMode;
 
     using AcceptClose = bool;
     using CloseGuard = std::function<AcceptClose()>;

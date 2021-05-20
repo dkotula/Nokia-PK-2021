@@ -18,19 +18,21 @@ public:
                 ILogger& iLogger,
                 IBtsPort& bts,
                 IUserPort& user,
-                ITimerPort& timer);
+                ITimerPort& timer,
+                ISmsDb& db,
+                ISmsDb& db_w);
     ~Application();
 
     // ITimerEventsHandler interface
     void handleTimeout() override;
 
     // IBtsEventsHandler interface
-    void handleDisconnected() override;
-    void handleSmsReceived(common::PhoneNumber PhoneNumber, std::string msg) override;
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
-    
+    void handleDisconnected() override;
+    void handleSmsReceived(common::PhoneNumber PhoneNumber, std::string msg) override;
+    void handleSib(common::BtsId btsId) override;
     void handleSendCallRequest(const common::PhoneNumber) override;
     void handleCallAccepted(const common::PhoneNumber from) override;
     void handleCallRequest(common::PhoneNumber from) override;
