@@ -73,6 +73,8 @@ void QtUeGui::initInternalSignals()
 
     QObject::connect(this,SIGNAL(setConnectedStateSignal(QString, bool)),this,SLOT(setConnectedStateSlot(QString, bool)));
     QObject::connect(this,SIGNAL(setNewMessageSignal(bool)),this,SLOT(setNewMessageSlot(bool)));
+
+    QObject::connect(this,SIGNAL(setRetryToConnectSignal()),this,SLOT(setRetryToConnect()));
 }
 
 void QtUeGui::initLayout()
@@ -233,11 +235,22 @@ void QtUeGui::showPeerUserNotAvailable(PhoneNumber peer)
     setAlertMode().setText("Not available: " + to_string(peer));
 }
 
+void QtUeGui::showRetryAttach()
+{
+    emit setRetryToConnectSignal();
+}
 void QtUeGui::setConnectedStateSlot(QString text, bool connected)
 {
     logger.logDebug("GUI: setConnectedStateSlot(", text.toStdString(), ")");
     connectedStateLabel.setEnabled(connected);
     connectedStateLabel.setToolTip(text);
+}
+
+void QtUeGui::setRetryToConnect()
+{
+    logger.logDebug("GUI: setRetryToConnect()");
+    connectedStateLabel.setEnabled(false);
+    connectedStateLabel.setToolTip("Retry connect...");
 }
 
 void QtUeGui::setNewMessageSlot(bool value)

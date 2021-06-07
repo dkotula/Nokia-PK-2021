@@ -136,12 +136,17 @@ void Transport::handleError(QAbstractSocket::SocketError socketError)
             logger.logError("Host not found");
             break;
         case QAbstractSocket::ConnectionRefusedError:
-            logger.logError("Connection refused by peer");
+            logger.logError("Connection refused by peer \n");
             break;
         default:
             logger.logError(socket->errorString().toStdString());
     }
     //QTimer::singleShot(10000,[this](){this->connectToServer();});
+    if (disconnectedCallback)
+    {
+        logger.logInfo("Connection error - retry after 10 000 [ms]...");
+        disconnectedCallback();
+    }
      QTimer::singleShot(10000, this, SLOT(connectToServer()));
 }
 

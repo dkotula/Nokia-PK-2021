@@ -30,6 +30,7 @@ public:
     MOCK_METHOD(void, showSmsReceived, (), (final));
     MOCK_METHOD(void, setDialMode, (), (final));
     MOCK_METHOD(void, setConversationMode, (const common::PhoneNumber from), (final));
+    MOCK_METHOD(void, showRetryAttach, (), (final));
 };
 
 }

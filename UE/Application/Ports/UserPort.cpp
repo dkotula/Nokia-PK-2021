@@ -56,6 +56,21 @@ void UserPort::showConnected()
     });
 }
 
+
+void UserPort::showRetryAttach()
+{
+    IUeGui::IListViewMode& menu = gui.setListViewMode();
+    menu.clearSelectionList();
+    menu.addSelectionListItem("Retry attach", "");
+    gui.setAcceptCallback([&](){
+        switch (menu.getCurrentItemIndex().second) {
+        case 0:
+            gui.showConnecting();
+            break;
+        }
+    });
+}
+
 void UserPort::setSmsComposeMode()
 {
     IUeGui::ISmsComposeMode& sms = gui.setSmsComposeMode();

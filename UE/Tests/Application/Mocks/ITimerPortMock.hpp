@@ -24,6 +24,7 @@ public:
 
     MOCK_METHOD(void, startTimer, (ITimerPort::Duration), (final));
     MOCK_METHOD(void, stopTimer, (), (final));
+    MOCK_METHOD(void, stop, (), (final));
 };
 
 }

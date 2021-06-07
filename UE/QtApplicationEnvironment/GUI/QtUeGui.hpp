@@ -50,6 +50,7 @@ public:
     void showNotConnected() override;
     void showNewSms() override;
     void showPeerUserNotAvailable(PhoneNumber peer) override;
+    void showRetryAttach() override;
 
 
     IListViewMode& setListViewMode() override;
@@ -67,6 +68,7 @@ signals:
     void setConnectedStateSignal(QString text, bool connected);
     void setNewMessageSignal(bool);
     void showInformationBoxSignal(QString, QString);
+    void setRetryToConnectSignal();
 
 private:
 
@@ -122,6 +124,7 @@ private slots:
     void onTextEntered();
     void setConnectedStateSlot(QString text, bool connected);
     void setNewMessageSlot(bool);
+    void setRetryToConnect();
 
 private:
     template <typename ModeObject>

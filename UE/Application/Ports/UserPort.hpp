@@ -28,7 +28,7 @@ public:
     void showSmsReceived() override;
     void setDialMode() override;
     void setConversationMode(const common::PhoneNumber from) override;
-
+    void showRetryAttach() override;
 
 
 private:

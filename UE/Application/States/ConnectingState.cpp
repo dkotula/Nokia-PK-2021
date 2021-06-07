@@ -2,6 +2,7 @@
 #include "ConnectedState.hpp"
 #include "NotConnectedState.hpp"
 
+
 namespace ue
 {
 
@@ -31,6 +32,17 @@ void ConnectingState::handleAttachReject()
     context.setState<NotConnectedState>();
 }
 
+void ConnectingState::handleDisconnected()
+{
+    logger.logError("Trying to connect BTS, but BTS is ureachable.");
+}
+
+
+void ConnectingState::handleSib(common::BtsId btsId)
+{
+    logger.logError("BTS disconnected in connecting state cause: Uexpected handleSib=", btsId);
+    context.setState<ConnectingState>(btsId);
+}
 }
 
 

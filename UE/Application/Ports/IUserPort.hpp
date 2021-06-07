@@ -28,6 +28,7 @@ public:
     virtual void showSmsReceived() = 0;
     virtual void setDialMode() = 0;
     virtual void setConversationMode(const common::PhoneNumber from) = 0;
+    virtual void showRetryAttach() = 0;
 };
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseState.hpp"
+#include <functional>
 
 namespace ue
 {
@@ -18,6 +19,8 @@ public:
 public:
     void handleAttachAccept() final;
     void handleAttachReject() final;
+    void handleDisconnected() override;
+    void handleSib(common::BtsId btsId) final;
 };
 
 }
