@@ -86,12 +86,14 @@ void ConnectedState::handleUnknownRecipient(const common::PhoneNumber from)
 {
     if (context.user.isTalking()) {
         context.timer.stopTimer();
-        context.user.setUnknownRecipientTalking();
+        context.timer.startTimer(1s);
+        context.user.showPhonesAreNotPeered(participant);
     }
     else {
         //context.db.setUnknownRecipient(from);
     }
 }
+
 
 void ConnectedState::handleTimeout()
 {
