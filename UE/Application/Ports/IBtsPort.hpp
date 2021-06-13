@@ -22,6 +22,7 @@ public:
     virtual void handleCallTalk(const common::PhoneNumber from, const std::string &message) = 0;
     virtual void handleUnknownRecipient(const common::PhoneNumber from) = 0;
 
+
 };
 
 class IBtsPort

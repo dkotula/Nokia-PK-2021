@@ -102,23 +102,4 @@ TEST_F(BtsPortTestSuite, shallSendAttachRequest)
     ASSERT_NO_THROW(EXPECT_EQ(BTS_ID, reader.readBtsId()));
     ASSERT_NO_THROW(reader.checkEndOfMessage());
 }
-
-TEST_F(BtsPortTestSuite, shallHandleReceivedSms)
-{
-    EXPECT_CALL(handlerMock, handleSmsReceived);
-    common::OutgoingMessage message{common::MessageId::Sms,
-                                common::PhoneNumber{},
-                                PHONE_NUMBER};
-    messageCallback(message.getMessage());
-}
-
-TEST_F(BtsPortTestSuite, shallHandleCallRequest)
-{
-    EXPECT_CALL(handlerMock, handleCallRequest);
-    common::OutgoingMessage msg{common::MessageId::CallRequest,
-                                common::PhoneNumber{},
-                                PHONE_NUMBER};
-    messageCallback(msg.getMessage());
-}
-
 }

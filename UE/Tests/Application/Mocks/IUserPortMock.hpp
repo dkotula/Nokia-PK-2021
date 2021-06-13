@@ -38,6 +38,8 @@ public:
     MOCK_METHOD(void, setCallDropped, (const common::PhoneNumber recipient), (final));
     MOCK_METHOD(bool, isTalking, (), (final));
     MOCK_METHOD(void, setUnknownRecipientTalking, (), (final));
+    MOCK_METHOD(void, showPhonesAreNotPeered, (const common::PhoneNumber from), (final));
+
 };
 
 }

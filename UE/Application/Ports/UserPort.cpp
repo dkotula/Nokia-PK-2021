@@ -156,4 +156,8 @@ void UserPort::setUnknownRecipientTalking()
     showConnected();
 }
 
+void UserPort::showPhonesAreNotPeered(const common::PhoneNumber from)
+{
+    gui.showPeerUserNotAvailable(from);
+}
 }
