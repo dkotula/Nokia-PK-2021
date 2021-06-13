@@ -31,6 +31,7 @@ public:
     void setCallRequestMode(const common::PhoneNumber from) override;
     void callTalkMessage(const common::PhoneNumber from, const std::string &text) override;
     void setCallDropped(const common::PhoneNumber recipient) override;
+    void showPhonesAreNotPeered(const common::PhoneNumber from) override;
 
 
 

@@ -20,7 +20,7 @@ public:
     virtual void handleCallRequest(common::PhoneNumber) = 0;
     virtual void handleReceivedCallDrop(const common::PhoneNumber) = 0;
     virtual void handleCallTalk(const common::PhoneNumber from, const std::string &message) = 0;
-
+    virtual void handlePhonesAreNotPeered(const common::PhoneNumber) =0;
 };
 
 class IBtsPort

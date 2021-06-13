@@ -92,7 +92,8 @@ void BtsPort::handleMessage(BinaryMessage msg)
         }
         case common::MessageId::UnknownRecipient:
         {
-            //TODO
+            logger.logDebug("BtsPort, User not available:", from);
+            handler->handlePhonesAreNotPeered(from);
             break;
         }
         default:

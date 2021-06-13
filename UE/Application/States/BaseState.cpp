@@ -90,5 +90,9 @@ void BaseState::handleSendCallReject(const common::PhoneNumber to)
 {
     logger.logError("Uexpected: handleSendCallReject");
 }
+void BaseState::handlePhonesAreNotPeered(const common::PhoneNumber from)
+{
+    logger.logError("Unexpected: handlePhonesAreNotPeered");
+}
 
 }

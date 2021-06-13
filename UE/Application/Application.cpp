@@ -96,5 +96,10 @@ void Application::handleSendCallReject(const common::PhoneNumber to)
 {
     context.state->handleSendCallReject(to);
 }
+void Application::handlePhonesAreNotPeered(const common::PhoneNumber from)
+{
+    context.state->handlePhonesAreNotPeered(from);
+
+}
 
 }

@@ -71,5 +71,8 @@ void ConnectedState::handleSendCallReject(const common::PhoneNumber to)
 {
     context.bts.sendCallReject(to);
 }
-
+void ConnectedState::handlePhonesAreNotPeered(const common::PhoneNumber from)
+{
+    context.user.showPhonesAreNotPeered(from);
+}
 }

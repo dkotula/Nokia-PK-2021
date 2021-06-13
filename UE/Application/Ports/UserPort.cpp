@@ -139,5 +139,9 @@ void UserPort::setCallDropped(const common::PhoneNumber recipient)
 {
     showConnected();
 }
+void UserPort::showPhonesAreNotPeered(const common::PhoneNumber from)
+{
+    gui.showPeerUserNotAvailable(from);
+}
 
 }
