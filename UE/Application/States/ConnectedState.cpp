@@ -21,10 +21,12 @@ void ConnectedState::handleDisconnected()
 void ConnectedState::handleSmsReceived(const common::PhoneNumber from, const std::string& text)
 
 {
+    context.db.addSms(from ,context.mynumber, text);
     context.user.showSmsReceived();
 }
 void ConnectedState::handleSendMessage(const common::PhoneNumber to, const std::string& message)
 {
+    context.db.addSms(context.mynumber, to, message);
     context.bts.sendMessage(to, message);
 }
 
