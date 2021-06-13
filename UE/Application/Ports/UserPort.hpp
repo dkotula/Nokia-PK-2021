@@ -33,6 +33,7 @@ public:
     void setCallDropped(const common::PhoneNumber recipient) override;
     bool isTalking() override;
     void setUnknownRecipientTalking() override;
+    void showPhonesAreNotPeered(const common::PhoneNumber from) override;
 
 
 

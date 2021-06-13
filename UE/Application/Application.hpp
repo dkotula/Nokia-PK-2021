@@ -42,6 +42,7 @@ public:
     void handleSendCallReject(const common::PhoneNumber to) override;
     void handleUnknownRecipient(const common::PhoneNumber from) override;
 
+
 private:
     Context context;
     common::PrefixedLogger logger;
