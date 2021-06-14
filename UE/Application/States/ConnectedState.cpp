@@ -40,7 +40,7 @@ void ConnectedState::handleCallRequest( const common::PhoneNumber from)
 void ConnectedState::handleReceivedCallDrop(const common::PhoneNumber recipient)
 {
     context.timer.stopTimer();
-    context.user.setCallDropped(recipient);
+    context.user.showConnected();
 }
 
 void ConnectedState::handleSendCallRequest(const common::PhoneNumber to)
