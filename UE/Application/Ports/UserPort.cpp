@@ -4,14 +4,16 @@
 #include "UeGui/IDialMode.hpp"
 #include "UeGui/ICallMode.hpp"
 #include "UeGui/ITextMode.hpp"
+#include "SmsDatabase.hpp"
 
 namespace ue
 {
 
-UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber)
+UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber, ISmsDb &db)
     : logger(logger, "[USER-PORT]"),
       gui(gui),
-      phoneNumber(phoneNumber)
+      phoneNumber(phoneNumber),
+      db(db)
 {}
 
 void UserPort::start(IUserEventsHandler &handler)
@@ -49,7 +51,7 @@ void UserPort::showConnected()
             setSmsComposeMode();
             break;
         case 1:
-            //showSmsList();
+            showSmsList();
             break;
         case 2:
             setDialMode();
@@ -70,6 +72,20 @@ void UserPort::setSmsComposeMode()
     });
     gui.setRejectCallback([&](){
         sms.clearSmsText();
+        showConnected();
+    });
+}
+
+void UserPort::showSmsList()
+{
+    IUeGui::IListViewMode& menu = gui.setListViewMode();
+    menu.clearSelectionList();
+    std::vector<Sms> smslist = db.getAllSms();
+    for (int i = 0; db.getSize()>i; i++)
+    {
+        menu.addSelectionListItem(to_string(smslist[i].from), "");
+    }
+    gui.setRejectCallback([&](){
         showConnected();
     });
 }

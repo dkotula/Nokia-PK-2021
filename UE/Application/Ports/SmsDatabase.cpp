@@ -13,4 +13,8 @@ std::vector<Sms>& SmsDb::getAllSms()
     return db;
 }
 
+int SmsDb::getSize(){
+    return db.size();
+}
+
 }

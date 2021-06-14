@@ -6,6 +6,7 @@
 #include "Mocks/IUserPortMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Mocks/IUeGuiMock.hpp"
+#include "Mocks/ISmsDatabaseMock.hpp"
 
 namespace ue
 {
@@ -19,8 +20,9 @@ protected:
     StrictMock<IUserEventsHandlerMock> handlerMock;
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
+    StrictMock<ISmsDbMock> db;
 
-    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER};
+    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, db};
 
     UserPortTestSuite()
     {
