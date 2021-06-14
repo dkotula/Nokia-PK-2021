@@ -22,12 +22,13 @@ void TimerPort::stop()
 
 void TimerPort::startTimer(Duration duration)
 {
-    logger.logDebug("Start timer: ", duration.count(), "ms");
+    auto durationCount = duration.count();
+    logger.logDebug("Start timer: ", durationCount, "ms");
     isRunning = true;
     startTime = std::chrono::system_clock::now();
-    std::thread t([&, duration](){
+    std::thread t([&, durationCount](){
         while(isRunning) {
-            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() > duration.count()) {
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() > durationCount) {
                 handler->handleTimeout();
                 break;
             }
