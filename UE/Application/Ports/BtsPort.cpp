@@ -132,8 +132,6 @@ void BtsPort::sendMessage(const common::PhoneNumber to, const std::string& messa
                                 phoneNumber,
                                 to};
     msg.writeText(message);
-    //Sms outgoingSms(from, message);
-    //context.db.insert(outgoingSms);
     transport.sendMessage(msg.getMessage());
 }
 
@@ -144,7 +142,6 @@ void BtsPort::sendCallRequest(const common::PhoneNumber to)
                                 phoneNumber,
                                 to};
     transport.sendMessage(msg.getMessage());
-    //timer start
 }
 
 void BtsPort::sendCallAccepted(const common::PhoneNumber from)

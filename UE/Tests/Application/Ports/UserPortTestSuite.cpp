@@ -20,6 +20,7 @@ protected:
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
     StrictMock<ISmsComposeModeMock> smsComposeModeMock;
+    StrictMock<IDialModeMock> dialModeMock;
 
     UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER};
 
@@ -70,6 +71,15 @@ TEST_F(UserPortTestSuite, shallShowComposeMode)
     EXPECT_CALL(guiMock, setAcceptCallback).WillOnce(SaveArg<0>(&callback));
     EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
     objectUnderTest.setSmsComposeMode();
+}
+
+TEST_F(UserPortTestSuite, shallShowDialMode)
+{
+    std::function<void()> callback;
+    EXPECT_CALL(guiMock, setDialMode()).WillOnce(ReturnRef(dialModeMock));
+    EXPECT_CALL(guiMock, setAcceptCallback).WillOnce(SaveArg<0>(&callback));
+    EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
+    objectUnderTest.setDialMode();
 }
 
 }
