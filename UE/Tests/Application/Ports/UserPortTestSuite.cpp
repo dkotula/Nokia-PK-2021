@@ -15,12 +15,14 @@ class UserPortTestSuite : public Test
 {
 protected:
     const common::PhoneNumber PHONE_NUMBER{112};
+    const common::PhoneNumber PHONE_NUMBER_RECIPIENT{113};
     NiceMock<common::ILoggerMock> loggerMock;
     StrictMock<IUserEventsHandlerMock> handlerMock;
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
     StrictMock<ISmsComposeModeMock> smsComposeModeMock;
     StrictMock<IDialModeMock> dialModeMock;
+    StrictMock<ICallModeMock> callModeMock;
 
     UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER};
 
@@ -80,6 +82,16 @@ TEST_F(UserPortTestSuite, shallShowDialMode)
     EXPECT_CALL(guiMock, setAcceptCallback).WillOnce(SaveArg<0>(&callback));
     EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
     objectUnderTest.setDialMode();
+}
+
+TEST_F(UserPortTestSuite, shallShowCallMode)
+{
+    std::function<void()> callback;
+    EXPECT_CALL(guiMock, setCallMode()).WillOnce(ReturnRef(callModeMock));
+    EXPECT_CALL(callModeMock, clearOutgoingText());
+    EXPECT_CALL(guiMock, setAcceptCallback).WillOnce(SaveArg<0>(&callback));
+    EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
+    objectUnderTest.setConversationMode(PHONE_NUMBER_RECIPIENT);
 }
 
 }
