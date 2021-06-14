@@ -130,6 +130,13 @@ TEST_F(ApplicationConnectedTestSuite, shallSendCallRequestAndStartTimer)
     objectUnderTest.handleSendCallRequest(PHONE_NUMBER_RECIPIENT);
 }
 
+TEST_F(ApplicationConnectedTestSuite, shallSendCallReject)
+{
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(btsPortMock, sendCallReject(PHONE_NUMBER_RECIPIENT));
+    objectUnderTest.handleSendCallReject(PHONE_NUMBER_RECIPIENT);
+}
+
 
 
 }
