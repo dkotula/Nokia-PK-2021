@@ -22,7 +22,7 @@ protected:
     const common::BtsId BTS_ID{42};
     const common::PhoneNumber PHONE_NUMBER{112};
     const common::PhoneNumber PHONE_NUMBER_RECIPIENT{113};
-    const std::chrono::duration<long long int, std::ratio<1, 1000>> MINUTE{60s};
+    const std::chrono::milliseconds MINUTE{60s};
     NiceMock<common::ILoggerMock> loggerMock;
     StrictMock<IBtsPortMock> btsPortMock;
     StrictMock<IUserPortMock> userPortMock;
