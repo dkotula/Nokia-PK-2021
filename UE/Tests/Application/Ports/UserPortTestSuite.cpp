@@ -19,6 +19,7 @@ protected:
     StrictMock<IUserEventsHandlerMock> handlerMock;
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
+    StrictMock<ISmsComposeModeMock> smsComposeModeMock;
 
     UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER};
 
@@ -59,6 +60,16 @@ TEST_F(UserPortTestSuite, shallShowMenuOnConnected)
     EXPECT_CALL(listViewModeMock, addSelectionListItem(_, _)).Times(AtLeast(1));
     objectUnderTest.showConnected();
 
+}
+
+TEST_F(UserPortTestSuite, shallShowComposeMode)
+{
+    std::function<void()> callback;
+    EXPECT_CALL(guiMock, setSmsComposeMode()).WillOnce(ReturnRef(smsComposeModeMock));
+    EXPECT_CALL(smsComposeModeMock, clearSmsText());
+    EXPECT_CALL(guiMock, setAcceptCallback).WillOnce(SaveArg<0>(&callback));
+    EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
+    objectUnderTest.setSmsComposeMode();
 }
 
 }
