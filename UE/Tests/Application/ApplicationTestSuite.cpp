@@ -21,6 +21,7 @@ class ApplicationTestSuite : public Test
 protected:
     const common::BtsId BTS_ID{42};
     const common::PhoneNumber PHONE_NUMBER{112};
+    const common::PhoneNumber PHONE_NUMBER_RECIPIENT{113};
     NiceMock<common::ILoggerMock> loggerMock;
     StrictMock<IBtsPortMock> btsPortMock;
     StrictMock<IUserPortMock> userPortMock;
@@ -112,6 +113,13 @@ TEST_F(ApplicationConnectedTestSuite, shallReattach)
 
     doConnecting();
     doConnected();
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendMessageAndAddToDatabase)
+{
+    EXPECT_CALL(dbMock, addSms(_, PHONE_NUMBER_RECIPIENT, "Wiadomość"));
+    EXPECT_CALL(btsPortMock, sendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość"));
+    objectUnderTest.handleSendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość");
 }
 
 
