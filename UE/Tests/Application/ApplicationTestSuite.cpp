@@ -22,6 +22,7 @@ protected:
     const common::BtsId BTS_ID{42};
     const common::PhoneNumber PHONE_NUMBER{112};
     const common::PhoneNumber PHONE_NUMBER_RECIPIENT{113};
+    const std::chrono::duration<long long int, std::ratio<1, 1000>> MINUTE{60s};
     NiceMock<common::ILoggerMock> loggerMock;
     StrictMock<IBtsPortMock> btsPortMock;
     StrictMock<IUserPortMock> userPortMock;
@@ -120,6 +121,13 @@ TEST_F(ApplicationConnectedTestSuite, shallSendMessageAndAddToDatabase)
     EXPECT_CALL(dbMock, addSms(_, PHONE_NUMBER_RECIPIENT, "Wiadomość"));
     EXPECT_CALL(btsPortMock, sendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość"));
     objectUnderTest.handleSendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość");
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendCallRequestAndStartTimer)
+{
+    EXPECT_CALL(timerPortMock, startTimer(MINUTE));
+    EXPECT_CALL(btsPortMock, sendCallRequest(PHONE_NUMBER_RECIPIENT));
+    objectUnderTest.handleSendCallRequest(PHONE_NUMBER_RECIPIENT);
 }
 
 
