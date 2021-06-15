@@ -21,6 +21,8 @@ class ApplicationTestSuite : public Test
 protected:
     const common::BtsId BTS_ID{42};
     const common::PhoneNumber PHONE_NUMBER{112};
+    const common::PhoneNumber PHONE_NUMBER_RECIPIENT{113};
+    const std::chrono::milliseconds MINUTE{60s};
     NiceMock<common::ILoggerMock> loggerMock;
     StrictMock<IBtsPortMock> btsPortMock;
     StrictMock<IUserPortMock> userPortMock;
@@ -112,6 +114,43 @@ TEST_F(ApplicationConnectedTestSuite, shallReattach)
 
     doConnecting();
     doConnected();
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendMessageAndAddToDatabase)
+{
+    EXPECT_CALL(dbMock, addSms(_, PHONE_NUMBER_RECIPIENT, "Wiadomość"));
+    EXPECT_CALL(btsPortMock, sendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość"));
+    objectUnderTest.handleSendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość");
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendCallRequestAndStartTimer)
+{
+    EXPECT_CALL(timerPortMock, startTimer(MINUTE));
+    EXPECT_CALL(btsPortMock, sendCallRequest(PHONE_NUMBER_RECIPIENT));
+    objectUnderTest.handleSendCallRequest(PHONE_NUMBER_RECIPIENT);
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendCallReject)
+{
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(btsPortMock, sendCallReject(PHONE_NUMBER_RECIPIENT));
+    objectUnderTest.handleSendCallReject(PHONE_NUMBER_RECIPIENT);
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSetConversationMode)
+{
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(timerPortMock, startTimer(2 * MINUTE));
+    EXPECT_CALL(userPortMock, setConversationMode(PHONE_NUMBER_RECIPIENT));
+    objectUnderTest.handleCallAccepted(PHONE_NUMBER_RECIPIENT);
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendCallMessage)
+{
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(timerPortMock, startTimer(2 * MINUTE));
+    EXPECT_CALL(btsPortMock, sendCallMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość"));
+    objectUnderTest.handleSendCallMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość");
 }
 
 

@@ -170,19 +170,9 @@ void UserPort::callTalkMessage(const common::PhoneNumber from, const std::string
     gui.setCallMode().appendIncomingText(text);
 }
 
-void UserPort::setCallDropped(const common::PhoneNumber recipient)
-{
-    showConnected();
-}
-
 bool UserPort::isTalking()
 {
     return this->isUserTalking;
-}
-
-void UserPort::setUnknownRecipientTalking()
-{
-    showConnected();
 }
 
 void UserPort::showPhonesAreNotPeered(const common::PhoneNumber from)

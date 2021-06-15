@@ -36,9 +36,7 @@ public:
     virtual void setConversationMode(const common::PhoneNumber from) = 0;
     virtual void setCallRequestMode(const common::PhoneNumber from) = 0;
     virtual void callTalkMessage(const common::PhoneNumber from, const std::string &text) = 0;
-    virtual void setCallDropped(const common::PhoneNumber recipient) = 0;
     virtual bool isTalking() = 0;
-    virtual void setUnknownRecipientTalking() = 0;
     virtual void showPhonesAreNotPeered(const common::PhoneNumber from)=0;
 };
 
