@@ -105,6 +105,7 @@ void UserPort::setConversationMode(const common::PhoneNumber from)
 {
     IUeGui::ICallMode& call = gui.setCallMode();
     this->isUserTalking = true;
+    call.clearIncomingText();
     call.clearOutgoingText();
     gui.setAcceptCallback([&, from](){
         handler->handleSendCallMessage(from, call.getOutgoingText());
@@ -113,6 +114,7 @@ void UserPort::setConversationMode(const common::PhoneNumber from)
 
     gui.setRejectCallback([&, from](){
         handler->handleSendCallReject(from);
+        call.clearIncomingText();
         call.clearOutgoingText();
         showConnected();
     });

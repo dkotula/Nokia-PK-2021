@@ -21,6 +21,7 @@ public:
 
     void appendIncomingText(const std::string &text) override;
     void clearOutgoingText() override;
+    void clearIncomingText() override;
     std::string getOutgoingText() const override;
 
 private:
