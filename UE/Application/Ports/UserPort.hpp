@@ -29,6 +29,7 @@ public:
     void showSmsReceived() override;
     void setDialMode() override;
     void showSmsList() override;
+    void showSms(int id) override;
     void setConversationMode(const common::PhoneNumber from) override;
     void setCallRequestMode(const common::PhoneNumber from) override;
     void callTalkMessage(const common::PhoneNumber from, const std::string &text) override;

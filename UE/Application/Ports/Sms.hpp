@@ -8,5 +8,6 @@ struct Sms{
     common::PhoneNumber from{};
     common::PhoneNumber to{};
     string text;
+    int id = 0;
     bool read = false;
 };

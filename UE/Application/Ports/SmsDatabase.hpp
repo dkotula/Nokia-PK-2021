@@ -16,6 +16,7 @@ public:
     std::vector<Sms>& getAllSms() override;
 private:
     std::vector<Sms> db;
+    int id = 0;
 };
 
 }
