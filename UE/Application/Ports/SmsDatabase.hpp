@@ -12,7 +12,6 @@ class SmsDb : public ISmsDb
 {
 public:
     void addSms(const common::PhoneNumber from, const common::PhoneNumber to, const string& text) override;
-    int getSize() override;
     std::vector<Sms>& getAllSms() override;
 private:
     std::vector<Sms> db;

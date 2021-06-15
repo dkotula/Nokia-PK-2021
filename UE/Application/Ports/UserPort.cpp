@@ -81,7 +81,7 @@ void UserPort::showSmsList()
     IUeGui::IListViewMode& menu = gui.setListViewMode();
     menu.clearSelectionList();
     std::vector<Sms>& smslist = db.getAllSms();
-    for (int i = 0; db.getSize()>i; i++)
+    for (int i = 0; smslist.size()>i; i++)
     {
         menu.addSelectionListItem(to_string(smslist[i].id)+ " " + to_string(smslist[i].from)+ " " +to_string(smslist[i].to), "");
     }

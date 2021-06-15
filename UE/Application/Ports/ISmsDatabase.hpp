@@ -13,7 +13,6 @@ public:
     virtual ~ISmsDb() = default;
 
     virtual void addSms(const common::PhoneNumber from, const common::PhoneNumber to, const string& text) = 0;
-    virtual int getSize() = 0;
     virtual std::vector<Sms>& getAllSms() = 0;
 };
 
