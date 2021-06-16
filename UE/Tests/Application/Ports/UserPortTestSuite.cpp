@@ -89,6 +89,7 @@ TEST_F(UserPortTestSuite, shallShowCallMode)
     std::function<void()> callback;
     EXPECT_CALL(guiMock, setCallMode()).WillOnce(ReturnRef(callModeMock));
     EXPECT_CALL(callModeMock, clearOutgoingText());
+    EXPECT_CALL(callModeMock, clearIncomingText());
     EXPECT_CALL(guiMock, setAcceptCallback).WillOnce(SaveArg<0>(&callback));
     EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
     objectUnderTest.setConversationMode(PHONE_NUMBER_RECIPIENT);
