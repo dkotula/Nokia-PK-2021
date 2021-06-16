@@ -23,6 +23,7 @@ private:
     ITimerEventsHandler* handler = nullptr;
     std::chrono::time_point<std::chrono::system_clock> startTime;
     bool isRunning = false;
+    bool isFree = true;
 };
 
 }
