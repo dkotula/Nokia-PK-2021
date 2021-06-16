@@ -20,6 +20,7 @@ protected:
     StrictMock<IUserEventsHandlerMock> handlerMock;
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
+    StrictMock<ITextModeMock> textModeMock;
     StrictMock<ISmsComposeModeMock> smsComposeModeMock;
     StrictMock<IDialModeMock> dialModeMock;
     StrictMock<ICallModeMock> callModeMock;
@@ -94,5 +95,22 @@ TEST_F(UserPortTestSuite, shallShowCallMode)
     EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
     objectUnderTest.setConversationMode(PHONE_NUMBER_RECIPIENT);
 }
+
+TEST_F(UserPortTestSuite, shallShowSmsReceived)
+{
+    EXPECT_CALL(guiMock, showNewSms());
+    objectUnderTest.showSmsReceived();
+}
+
+TEST_F(UserPortTestSuite, shallCallRequestMode)
+{
+    std::function<void()> callback;
+    EXPECT_CALL(guiMock, setAlertMode()).WillOnce(ReturnRef(textModeMock));
+    EXPECT_CALL(textModeMock, setText(to_string(PHONE_NUMBER_RECIPIENT) + " is calling"));
+    EXPECT_CALL(guiMock, setAcceptCallback).WillOnce(SaveArg<0>(&callback));
+    EXPECT_CALL(guiMock, setRejectCallback).WillOnce(SaveArg<0>(&callback));
+    objectUnderTest.setCallRequestMode(PHONE_NUMBER_RECIPIENT);
+}
+
 
 }
