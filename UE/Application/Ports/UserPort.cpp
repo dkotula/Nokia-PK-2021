@@ -81,13 +81,20 @@ void UserPort::showSmsList()
     IUeGui::IListViewMode& menu = gui.setListViewMode();
     menu.clearSelectionList();
     std::vector<Sms>& smslist = db.getAllSms();
-    for (int i = 0; smslist.size()>i; i++)
+    if(smslist.size() == 0)
     {
-        menu.addSelectionListItem(to_string(smslist[i].id)+ " " + to_string(smslist[i].from)+ " " +to_string(smslist[i].to), "");
+        IUeGui::ITextMode& nosms = gui.setViewTextMode();
+        nosms.setText("No sms :)");
     }
-    gui.setAcceptCallback([&](){
-        showSms(menu.getCurrentItemIndex().second);
-    });
+    else{
+        for (int i = 0; smslist.size()>i; i++)
+        {
+            menu.addSelectionListItem(to_string(smslist[i].id)+ " " + to_string(smslist[i].from)+ " " +to_string(smslist[i].to), "");
+        }
+        gui.setAcceptCallback([&](){
+            showSms(menu.getCurrentItemIndex().second);
+        });
+    }
     gui.setRejectCallback([&](){
         showConnected();
     });
