@@ -89,7 +89,7 @@ void UserPort::showSmsList()
     else{
         for (int i = 0; smslist.size()>i; i++)
         {
-            menu.addSelectionListItem(to_string(smslist[i].id)+ " " + to_string(smslist[i].from)+ " " +to_string(smslist[i].to), "");
+            menu.addSelectionListItem("FROM:"+to_string(smslist[i].from)+ " TO:" +to_string(smslist[i].to), "");
         }
         gui.setAcceptCallback([&](){
             showSms(menu.getCurrentItemIndex().second);
@@ -127,7 +127,7 @@ void UserPort::setDialMode()
     });
 }
 
-void UserPort::showSms(int id)
+void UserPort::showSms(const int id)
 {
     IUeGui::ITextMode& menu = gui.setViewTextMode();
     std::vector<Sms>& smslist = db.getAllSms();
