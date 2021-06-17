@@ -33,9 +33,17 @@ void ConnectedState::handleSendMessage(const common::PhoneNumber to, const std::
 
 void ConnectedState::handleCallRequest( const common::PhoneNumber from)
 {
-    participant = from;
-    context.timer.startTimer(30s);
-    context.user.setCallRequestMode(from);
+
+    if (context.user.isTalking() && from !=participant)
+    {
+        context.bts.sendCallReject(from);
+    }
+    else
+    {
+        participant = from;
+        context.timer.startTimer(30s);
+        context.user.setCallRequestMode(from);
+    }
 }
 
 void ConnectedState::handleReceivedCallDrop(const common::PhoneNumber recipient)

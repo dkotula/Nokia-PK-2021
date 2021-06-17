@@ -12,6 +12,7 @@ public:
 
     virtual void appendIncomingText(const std::string &text) = 0;
     virtual void clearOutgoingText() = 0;
+    virtual void clearIncomingText() = 0;
     virtual std::string getOutgoingText() const = 0;
 };
 

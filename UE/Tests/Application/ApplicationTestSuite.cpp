@@ -138,6 +138,14 @@ TEST_F(ApplicationConnectedTestSuite, shallSendCallReject)
     objectUnderTest.handleSendCallReject(PHONE_NUMBER_RECIPIENT);
 }
 
+TEST_F(ApplicationConnectedTestSuite, shallSendCallAccepted)
+{
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(timerPortMock, startTimer(2 * MINUTE));
+    EXPECT_CALL(btsPortMock, sendCallAccepted(PHONE_NUMBER_RECIPIENT));
+    objectUnderTest.handleSendCallAccepted(PHONE_NUMBER_RECIPIENT);
+}
+
 TEST_F(ApplicationConnectedTestSuite, shallSetConversationMode)
 {
     EXPECT_CALL(timerPortMock, stopTimer());
@@ -153,7 +161,11 @@ TEST_F(ApplicationConnectedTestSuite, shallSendCallMessage)
     EXPECT_CALL(btsPortMock, sendCallMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość"));
     objectUnderTest.handleSendCallMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość");
 }
-
-
+TEST_F(ApplicationConnectedTestSuite, shallCallRequest)
+{
+    EXPECT_CALL(timerPortMock, startTimer(MINUTE/2));
+    EXPECT_CALL(userPortMock, setCallRequestMode(PHONE_NUMBER_RECIPIENT));
+    objectUnderTest.handleCallRequest(PHONE_NUMBER_RECIPIENT);
+}
 
 }
