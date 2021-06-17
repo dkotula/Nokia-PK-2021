@@ -162,6 +162,7 @@ TEST_F(ApplicationConnectedTestSuite, shallSendCallMessage)
 }
 TEST_F(ApplicationConnectedTestSuite, shallCallRequest)
 {
+    EXPECT_CALL(userPortMock, isTalking());
     EXPECT_CALL(timerPortMock, startTimer(MINUTE/2));
     EXPECT_CALL(userPortMock, setCallRequestMode(PHONE_NUMBER_RECIPIENT));
     objectUnderTest.handleCallRequest(PHONE_NUMBER_RECIPIENT);
