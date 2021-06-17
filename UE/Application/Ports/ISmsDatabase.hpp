@@ -14,6 +14,7 @@ public:
 
     virtual void addSms(const common::PhoneNumber from, const common::PhoneNumber to, const string& text) = 0;
     virtual std::vector<Sms>& getAllSms() = 0;
+    virtual void setType(smstype) = 0;
 };
 
 }

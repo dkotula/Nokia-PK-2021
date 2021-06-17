@@ -4,14 +4,17 @@
 #include "UeGui/IDialMode.hpp"
 #include "UeGui/ICallMode.hpp"
 #include "UeGui/ITextMode.hpp"
+#include "SmsDatabase.hpp"
+#include <algorithm>
 
 namespace ue
 {
 
-UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber)
+UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber, ISmsDb &db)
     : logger(logger, "[USER-PORT]"),
       gui(gui),
-      phoneNumber(phoneNumber)
+      phoneNumber(phoneNumber),
+      db(db)
 {}
 
 void UserPort::start(IUserEventsHandler &handler)
@@ -49,7 +52,7 @@ void UserPort::showConnected()
             setSmsComposeMode();
             break;
         case 1:
-            //showSmsList();
+            showSmsList();
             break;
         case 2:
             setDialMode();
@@ -70,6 +73,42 @@ void UserPort::setSmsComposeMode()
     });
     gui.setRejectCallback([&](){
         sms.clearSmsText();
+        showConnected();
+    });
+}
+
+void UserPort::showSmsList()
+{
+    IUeGui::IListViewMode& menu = gui.setListViewMode();
+    menu.clearSelectionList();
+    std::vector<Sms>& smslist = db.getAllSms();
+    if(smslist.size() == 0)
+    {
+        IUeGui::ITextMode& nosms = gui.setViewTextMode();
+        nosms.setText("No sms :)");
+    }
+    else{
+        for (int i = 0; smslist.size()>i; i++)
+        {
+            switch(smslist[i].type){
+            case sent:
+                menu.addSelectionListItem("SENT TO:" +to_string(smslist[i].to), "");
+                break;
+            case rread:
+                menu.addSelectionListItem("FROM:"+to_string(smslist[i].from), "");
+                break;
+            case unread:
+                menu.addSelectionListItem("FROM:"+to_string(smslist[i].from)+ " UNREAD", "");
+                break;
+            case unknown_recipient:
+                menu.addSelectionListItem("UNKNOWN RECIPIENT:" + to_string(smslist[i].to), "");
+            }
+        }
+        gui.setAcceptCallback([&](){
+            showSms(smslist[menu.getCurrentItemIndex().second]);
+        });
+    }
+    gui.setRejectCallback([&](){
         showConnected();
     });
 }
@@ -98,6 +137,20 @@ void UserPort::setDialMode()
     });
     gui.setRejectCallback([&](){
         showConnected();
+    });
+}
+
+void UserPort::showSms(Sms& sms)
+{
+    IUeGui::ITextMode& menu = gui.setViewTextMode();
+    menu.setText(sms.text);
+    if (sms.type == unread)
+    {
+        sms.type = rread;
+        checkIsAllRead();
+    }
+    gui.setRejectCallback([&](){
+        showSmsList();
     });
 }
 
@@ -151,5 +204,11 @@ bool UserPort::isTalking()
 void UserPort::showPhonesAreNotPeered(const common::PhoneNumber from)
 {
     gui.showPeerUserNotAvailable(from);
+}
+void UserPort::checkIsAllRead(){
+    std::vector<Sms>& smslist = db.getAllSms();
+    if(!any_of(smslist.begin(), smslist.end(), [] (const Sms& sms){return sms.type == unread;})){
+        gui.showNotNewSms();
+    }
 }
 }

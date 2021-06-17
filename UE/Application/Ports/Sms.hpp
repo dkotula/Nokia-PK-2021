@@ -4,9 +4,17 @@
 
 using namespace std;
 
+enum smstype{
+    rread,
+    unread,
+    unknown_recipient,
+    sent
+};
+
 struct Sms{
     common::PhoneNumber from{};
     common::PhoneNumber to{};
     string text;
-    bool read = false;
+    int id = 0;
+    smstype type = unread;
 };

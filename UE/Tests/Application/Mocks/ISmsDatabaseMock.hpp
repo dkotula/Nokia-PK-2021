@@ -14,6 +14,7 @@ public:
 
     MOCK_METHOD(void, addSms, (const common::PhoneNumber from, const common::PhoneNumber to, const string& text), (final));
     MOCK_METHOD(std::vector<Sms>&, getAllSms, (), (final));
+    MOCK_METHOD(void, setType, (smstype type), (final));
 };
 
 }
