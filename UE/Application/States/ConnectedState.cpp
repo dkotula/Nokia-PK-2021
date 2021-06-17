@@ -27,6 +27,7 @@ void ConnectedState::handleSmsReceived(const common::PhoneNumber from, const std
 void ConnectedState::handleSendMessage(const common::PhoneNumber to, const std::string& message)
 {
     context.db.addSms(context.mynumber, to, message);
+    context.db.setType(sent);
     context.bts.sendMessage(to, message);
 }
 
@@ -92,7 +93,7 @@ void ConnectedState::handleUnknownRecipient(const common::PhoneNumber from)
         context.user.showPhonesAreNotPeered(participant);
     }
     else {
-        //context.db.setUnknownRecipient(from);
+        context.db.setType(unknown_recipient);
     }
 }
 

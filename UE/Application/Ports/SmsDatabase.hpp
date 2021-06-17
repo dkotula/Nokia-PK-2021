@@ -13,6 +13,7 @@ class SmsDb : public ISmsDb
 public:
     void addSms(const common::PhoneNumber from, const common::PhoneNumber to, const string& text) override;
     std::vector<Sms>& getAllSms() override;
+    void setType(smstype) override;
 private:
     std::vector<Sms> db;
     int id = 0;

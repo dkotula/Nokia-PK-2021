@@ -1,6 +1,7 @@
 #pragma once
 #include "Messages/PhoneNumber.hpp"
 #include "IUeGui.hpp"
+#include "Sms.hpp"
 
 
 
@@ -32,7 +33,7 @@ public:
     virtual void showSmsReceived() = 0;
     virtual void setDialMode() = 0;
     virtual void showSmsList() = 0;
-    virtual void showSms(const int id) = 0;
+    virtual void showSms(Sms& sms) = 0;
     virtual void setConversationMode(const common::PhoneNumber from) = 0;
     virtual void setCallRequestMode(const common::PhoneNumber from) = 0;
     virtual void callTalkMessage(const common::PhoneNumber from, const std::string &text) = 0;

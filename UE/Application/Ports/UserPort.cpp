@@ -89,10 +89,22 @@ void UserPort::showSmsList()
     else{
         for (int i = 0; smslist.size()>i; i++)
         {
-            menu.addSelectionListItem("FROM:"+to_string(smslist[i].from)+ " TO:" +to_string(smslist[i].to), "");
+            switch(smslist[i].type){
+            case sent:
+                menu.addSelectionListItem("SENT TO:" +to_string(smslist[i].to), "");
+                break;
+            case rread:
+                menu.addSelectionListItem("FROM:"+to_string(smslist[i].from), "");
+                break;
+            case unread:
+                menu.addSelectionListItem("FROM:"+to_string(smslist[i].from)+ " UNREAD", "");
+                break;
+            case unknown_recipient:
+                menu.addSelectionListItem("UNKNOWN RECIPIENT:" + to_string(smslist[i].to), "");
+            }
         }
         gui.setAcceptCallback([&](){
-            showSms(menu.getCurrentItemIndex().second);
+            showSms(smslist[menu.getCurrentItemIndex().second]);
         });
     }
     gui.setRejectCallback([&](){
@@ -127,11 +139,14 @@ void UserPort::setDialMode()
     });
 }
 
-void UserPort::showSms(const int id)
+void UserPort::showSms(Sms& sms)
 {
     IUeGui::ITextMode& menu = gui.setViewTextMode();
-    std::vector<Sms>& smslist = db.getAllSms();
-    menu.setText(smslist[id].text);
+    menu.setText(sms.text);
+    if (sms.type == unread)
+    {
+        sms.type = rread;
+    }
     gui.setRejectCallback([&](){
         showSmsList();
     });

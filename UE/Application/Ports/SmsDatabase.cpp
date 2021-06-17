@@ -13,4 +13,11 @@ std::vector<Sms>& SmsDb::getAllSms()
     return db;
 }
 
+void SmsDb::setType(smstype type)
+{
+    if (db.size()>0)
+    {
+        db.at(db.size()-1).type = type;
+    }
+}
 }

@@ -120,6 +120,7 @@ TEST_F(ApplicationConnectedTestSuite, shallSendMessageAndAddToDatabase)
 {
     EXPECT_CALL(dbMock, addSms(_, PHONE_NUMBER_RECIPIENT, "Wiadomość"));
     EXPECT_CALL(btsPortMock, sendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość"));
+    EXPECT_CALL(dbMock, setType(sent));
     objectUnderTest.handleSendMessage(PHONE_NUMBER_RECIPIENT, "Wiadomość");
 }
 
