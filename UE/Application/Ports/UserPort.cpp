@@ -5,6 +5,7 @@
 #include "UeGui/ICallMode.hpp"
 #include "UeGui/ITextMode.hpp"
 #include "SmsDatabase.hpp"
+#include <algorithm>
 
 namespace ue
 {
@@ -146,6 +147,7 @@ void UserPort::showSms(Sms& sms)
     if (sms.type == unread)
     {
         sms.type = rread;
+        checkIsAllRead();
     }
     gui.setRejectCallback([&](){
         showSmsList();
@@ -200,5 +202,11 @@ bool UserPort::isTalking()
 void UserPort::showPhonesAreNotPeered(const common::PhoneNumber from)
 {
     gui.showPeerUserNotAvailable(from);
+}
+void UserPort::checkIsAllRead(){
+    std::vector<Sms>& smslist = db.getAllSms();
+    if(!any_of(smslist.begin(), smslist.end(), [] (const Sms& sms){return sms.type == unread;})){
+        gui.showNotNewSms();
+    }
 }
 }

@@ -34,6 +34,7 @@ public:
     MOCK_METHOD(void, showSmsList, (), (final));
     MOCK_METHOD(void, showSms, (Sms& sms), (final));
     MOCK_METHOD(void, setDialMode, (), (final));
+    MOCK_METHOD(void, checkIsAllRead, (), (final));
     MOCK_METHOD(void, setConversationMode, (const common::PhoneNumber from), (final));
     MOCK_METHOD(void, setCallRequestMode, (const common::PhoneNumber from), (final));
     MOCK_METHOD(void, callTalkMessage, (const common::PhoneNumber from, const std::string &text), (final));

@@ -34,6 +34,7 @@ public:
     virtual void setDialMode() = 0;
     virtual void showSmsList() = 0;
     virtual void showSms(Sms& sms) = 0;
+    virtual void checkIsAllRead() = 0;
     virtual void setConversationMode(const common::PhoneNumber from) = 0;
     virtual void setCallRequestMode(const common::PhoneNumber from) = 0;
     virtual void callTalkMessage(const common::PhoneNumber from, const std::string &text) = 0;
